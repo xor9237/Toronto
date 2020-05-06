@@ -32,3 +32,17 @@ print(df.shape)
 # Replace "/" to "," in the column Neighborhood
 df['Neighborhood'] = df['Neighborhood'].str.replace("/", ",")
 
+
+# Get latitude and longitude and apply to the new columns
+df['latitude']=""
+df['longitude']=""
+
+y=0
+for x, z in zip(df.loc[:,'Borough'], df.loc[:,'Neighborhood']):
+    geolocator = Nominatim(user_agent="foursquare_agent")
+    location = geolocator.geocode("{}, {}, Toronto, Ontario, Canada".format(x,y ), timeout=None)
+    df.loc[y, 'latitude'] = location.latitude
+    df.loc[y, 'longitude'] = location.longitude
+    y+=1
+    if y==102:
+        break
