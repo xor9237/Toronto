@@ -3,6 +3,18 @@ import requests
 import pandas as pd
 from bs4 import BeautifulSoup
 
+import numpy as np
+import json
+
+from geopy.geocoders import Nominatim
+from pandas.io.json import json_normalize
+import matplotlib.cm as cm
+import matplotlib.colors as colors
+from sklearn.cluster import KMeans
+import folium
+
+import geocoder
+
 # Scrape from URL
 URL = 'https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_M'
 url = requests.get(URL)
@@ -19,3 +31,4 @@ print(df.shape)
 
 # Replace "/" to "," in the column Neighborhood
 df['Neighborhood'] = df['Neighborhood'].str.replace("/", ",")
+
