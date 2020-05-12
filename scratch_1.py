@@ -69,12 +69,14 @@ for lat, lng, borough, neighborhood in zip(df['latitude'], df['longitude'], df['
         fill_opacity=0.7,
         parse_html=False).add_to(map_toronto)
 
+
 # Define Foursquare Credentials and Version
 CLIENT_ID = '3MAR2Y4AH5PUQKHSI4TCMUQMLU2S45MO0TVJAKMHDDHAGINK'  # Foursquare ID
 CLIENT_SECRET = 'SRPNGW0J3R5EFCSNVENLIXE4BUCCI0X2EEDBYRZTGYLY4HL3'  # Foursquare Secret
 VERSION = '20180605'  # Foursquare API version
 radius = 500
 LIMIT = 50
+
 
 # Create function that will repeat the process for each neighborhood
 def getNearbyVenues(names, latitudes, longitudes, radius=500):
@@ -116,11 +118,14 @@ def getNearbyVenues(names, latitudes, longitudes, radius=500):
 
     return (nearby_venues)
 
+
+
 # def function on each neighborhood and create a new dataframe
 toronto_venues = getNearbyVenues(names=df['Neighborhood'],
                                    latitudes=df['latitude'],
                                    longitudes=df['longitude']
                                   )
+
 
 # Analyze each neighborhood
 # one hot encoding —> Converting categorical vairalbes to numeric variables
@@ -130,5 +135,4 @@ toronto_onehot = pd.get_dummies(toronto_venues[['Venue Category']], prefix="", p
 toronto_onehot['Neighborhood'] = toronto_venues['Neighborhood']
 
 # move neighborhood column to the first column
-fixed_columns = [toronto_onehot.columns[-1]] + list(toronto_onehot.columns[:-1])
-toronto_onehot = toronto_onehot[fixed_columns]
+toronto_onehot = toronto_onehot.set_index('Neighborhood').reset_index()
