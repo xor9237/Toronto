@@ -76,7 +76,7 @@ VERSION = '20180605'  # Foursquare API version
 radius = 500
 LIMIT = 50
 
-
+# Create function that will repeat the process for each neighborhood
 def getNearbyVenues(names, latitudes, longitudes, radius=500):
     venues_list = []
     for name, lat, lng in zip(names, latitudes, longitudes):
@@ -115,3 +115,20 @@ def getNearbyVenues(names, latitudes, longitudes, radius=500):
                              'Venue Category']
 
     return (nearby_venues)
+
+# def function on each neighborhood and create a new dataframe
+toronto_venues = getNearbyVenues(names=df['Neighborhood'],
+                                   latitudes=df['latitude'],
+                                   longitudes=df['longitude']
+                                  )
+
+# Analyze each neighborhood
+# one hot encoding —> Converting categorical vairalbes to numeric variables
+toronto_onehot = pd.get_dummies(toronto_venues[['Venue Category']], prefix="", prefix_sep="")
+
+# add neighborhood column back to dataframe
+toronto_onehot['Neighborhood'] = toronto_venues['Neighborhood']
+
+# move neighborhood column to the first column
+fixed_columns = [toronto_onehot.columns[-1]] + list(toronto_onehot.columns[:-1])
+toronto_onehot = toronto_onehot[fixed_columns]
