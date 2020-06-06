@@ -1,5 +1,4 @@
-# # #
-Get the data of boroughs from Wikipedia
+# # # Get the data of boroughs from Wikipedia
 
 # # # Install
 ```
@@ -31,5 +30,5 @@ table = soup.find_all('table')[0]
 df = pd.read_html(str(table))[0]
 ```
 First 5 rows of the imported dataframe
-
+![](images/1.df.head().png)
 
