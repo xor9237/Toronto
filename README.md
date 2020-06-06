@@ -59,5 +59,7 @@ for x, z in zip(df.loc[:,'Borough'], df.loc[:,'Neighborhood']):
     if y==103:
         break
 ```
+
 The first 5 rows of the result of the new dataframe with latitudes and longtidues added is below
+
 ![](toronto_github_image/2.newdf_head.png)
