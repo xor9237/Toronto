@@ -33,5 +33,7 @@ df = pd.read_html(str(table))[0]
 ```
 First 5 rows of the imported dataframe
 
+
+
 ![](images/1_df_head.png)
 
