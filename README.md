@@ -60,6 +60,31 @@ for x, z in zip(df.loc[:,'Borough'], df.loc[:,'Neighborhood']):
         break
 ```
 
-The first 5 rows of the result of the new dataframe with latitudes and longtidues added is below
+The first 5 rows of the result of the new dataframe with latitudes and longtidues added are below
 
 ![](toronto_github_image/2.newdf_head.png)
+
+- Create a map of Toronto and add markers to map
+```
+# create map of Toronto using latitude and longitude values
+location_toronto = geolocator.geocode("Toronto, Ontario, Canada")
+map_toronto = folium.Map(location=[location_toronto.latitude, location_toronto.longitude], zoom_start=10)
+
+df.loc[:, 'latitude'].astype('float')
+df.loc[:, 'longitude'].astype('float')
+
+# add markers to map
+for lat, lng, borough, neighborhood in zip(df['latitude'], df['longitude'], df['Borough'], df['Neighborhood']):
+    label = '{}, {}'.format(neighborhood, borough)
+    label = folium.Popup(label, parse_html=True)
+    folium.CircleMarker(
+        [lat, lng],
+        radius=5,
+        popup=label,
+        color='blue',
+        fill=True,
+        fill_color='#3186cc',
+        fill_opacity=0.7,
+        parse_html=False).add_to(map_toronto)
+```
+![](toronto_github_image/3.map_of_toronto.png)
