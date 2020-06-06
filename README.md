@@ -35,5 +35,5 @@ First 5 rows of the imported dataframe
 
 
 
-![](images/1_df_head.png)
+![](toronto_github_image/1.df.head.png)
 
