@@ -1,6 +1,6 @@
-# # # Get the data of boroughs from Wikipedia
+# Get the data of boroughs from Wikipedia
 
-# # # Install
+# Install
 ```
 import requests
 import pandas as pd
