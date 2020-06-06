@@ -21,6 +21,7 @@ import folium
 import geocoder
 ```
 
+# Clustering
 - Use the URL of Wikipedia to import dataframe dataset into Jupyter
 ```
 URL = 'https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_M'
