@@ -87,4 +87,4 @@ for lat, lng, borough, neighborhood in zip(df['latitude'], df['longitude'], df['
         fill_opacity=0.7,
         parse_html=False).add_to(map_toronto)
 ```
-![](toronto_github_image/3.map_of_toronto.png)
+![](toronto_github_image/3.toronto_map.png)
