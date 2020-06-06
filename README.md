@@ -150,3 +150,44 @@ toronto_venues = getNearbyVenues(names=df['Neighborhood'],
 ```
 Newly created dataframe look like below
 ![](toronto_github_image/4.toronto_venues.png)
+
+- ***One Hot Encoding*** to convert categorical variable to nuemric variables to use for clustering
+
+```
+# Analyze each neighborhood
+# one hot encoding —> Converting categorical vairalbes to numeric variables
+toronto_onehot = pd.get_dummies(toronto_venues[['Venue Category']], prefix="", prefix_sep="")
+
+# add neighborhood column back to dataframe
+toronto_onehot['Neighborhood'] = toronto_venues['Neighborhood'] 
+
+# move neighborhood column to the first column
+toronto_onehot = toronto_onehot.set_index('Neighborhood').reset_index()
+```
+
+- Group dataframe by 'Neighborhood' and take the mean for K-Means Clustering
+
+```
+# Group dataframe by neighborhood and take the mean of the frequency of occurence of each category
+toronto_grouped = toronto_onehot.groupby('Neighborhood').mean().reset_index()
+```
+
+- To see the result print the result by displaying top 5 common venues for each neighborhood.
+
+```
+# Print each neighborhood along with the top 5 most common venues
+num_top_venues = 5
+
+for hood in toronto_grouped['Neighborhood']:
+    print("----"+hood+"----")
+    temp = toronto_grouped[toronto_grouped['Neighborhood'] == hood].T.reset_index()
+    temp.columns = ['venue','freq']
+    temp = temp.iloc[1:]
+    temp['freq'] = temp['freq'].astype(float)
+    temp = temp.round({'freq': 2})
+    print(temp.sort_values('freq', ascending=False).reset_index(drop=True).head(num_top_venues))
+    print('\n')
+```
+
+For instance, it look like below when it's printed
+![](toronto_github_image/5.print_top_5_ex.png)
